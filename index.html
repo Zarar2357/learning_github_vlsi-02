@@ -1,4 +1,411 @@
-<b><h1>Zarar</h1><b>
-<button>click me</button> 
-<b><h1>Chetan</h1><b>
-<b><h1>Yusuf</h1><b>Sir</b>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zarar Studio — Build Something Beautiful</title>
+  <meta name="description" content="A professional landing page built with clean, Apple-inspired typography and layout." />
+  <style>
+    /* ---------- Design tokens ---------- */
+    :root {
+      --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+                    "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+      --bg: #ffffff;
+      --bg-alt: #f5f5f7;
+      --text: #1d1d1f;
+      --text-muted: #6e6e73;
+      --accent: #0071e3;
+      --accent-hover: #0077ed;
+      --border: rgba(0, 0, 0, 0.08);
+      --nav-bg: rgba(255, 255, 255, 0.72);
+      --radius: 18px;
+      --max-width: 1080px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #000000;
+        --bg-alt: #1d1d1f;
+        --text: #f5f5f7;
+        --text-muted: #a1a1a6;
+        --accent: #2997ff;
+        --accent-hover: #47a8ff;
+        --border: rgba(255, 255, 255, 0.12);
+        --nav-bg: rgba(20, 20, 20, 0.72);
+      }
+    }
+
+    /* ---------- Base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-stack);
+      font-size: 17px;
+      line-height: 1.47059;
+      font-weight: 400;
+      letter-spacing: -0.022em;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+    }
+
+    p { margin: 0; color: var(--text-muted); }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container {
+      width: min(100% - 48px, var(--max-width));
+      margin-inline: auto;
+    }
+
+    .section { padding: 112px 0; }
+    .section--alt { background: var(--bg-alt); }
+
+    .eyebrow {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(40px, 5vw, 56px);
+      line-height: 1.07;
+      margin-bottom: 16px;
+    }
+
+    .section-lead {
+      font-size: 21px;
+      max-width: 640px;
+    }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 22px;
+      border-radius: 980px;
+      font-size: 17px;
+      font-weight: 400;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn--primary { background: var(--accent); color: #fff; }
+    .btn--primary:hover { background: var(--accent-hover); text-decoration: none; }
+    .btn--ghost { color: var(--accent); background: transparent; }
+    .btn--ghost:hover { text-decoration: underline; }
+
+    /* ---------- Navigation ---------- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav .container {
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo { font-weight: 600; font-size: 19px; color: var(--text); letter-spacing: -0.02em; }
+    .logo:hover { text-decoration: none; }
+    .nav-links { display: flex; gap: 32px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { color: var(--text); font-size: 14px; opacity: 0.8; }
+    .nav-links a:hover { opacity: 1; text-decoration: none; }
+
+    /* ---------- Hero ---------- */
+    .hero { text-align: center; padding: 120px 0 96px; }
+    .hero h1 {
+      font-size: clamp(52px, 8vw, 96px);
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: clamp(19px, 2.4vw, 24px);
+      max-width: 620px;
+      margin: 0 auto 36px;
+    }
+    .hero-actions { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+
+    /* ---------- Feature grid ---------- */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 64px;
+    }
+    .card {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 40px 32px;
+      border: 1px solid var(--border);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08); }
+    .section--alt .card { background: var(--bg); }
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--bg-alt);
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      margin-bottom: 24px;
+    }
+    .card h3 { font-size: 24px; margin-bottom: 10px; }
+    .card p { font-size: 17px; }
+
+    /* ---------- Split feature ---------- */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .split h2 { font-size: clamp(36px, 4vw, 48px); line-height: 1.1; margin-bottom: 20px; }
+    .split ul { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 14px; }
+    .split li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      color: var(--text);
+    }
+    .split li::before {
+      content: "✓";
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .visual {
+      aspect-ratio: 4 / 3;
+      border-radius: 28px;
+      background: linear-gradient(135deg, #2997ff 0%, #5e5ce6 50%, #bf5af2 100%);
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 72px;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ---------- Pricing ---------- */
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 64px;
+    }
+    .plan {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+    }
+    .plan--featured { border: 2px solid var(--accent); }
+    .plan h3 { font-size: 24px; margin-bottom: 8px; }
+    .plan .price {
+      font-size: 48px;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      margin: 16px 0 4px;
+      color: var(--text);
+    }
+    .plan .price span { font-size: 17px; color: var(--text-muted); font-weight: 400; letter-spacing: 0; }
+    .plan ul { list-style: none; padding: 0; margin: 24px 0 32px; display: grid; gap: 12px; flex: 1; }
+    .plan li { font-size: 15px; color: var(--text-muted); }
+    .plan li::before { content: "✓  "; color: var(--accent); }
+    .plan .btn { width: 100%; }
+
+    /* ---------- Footer ---------- */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .footer .container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 900px) {
+      .features, .pricing { grid-template-columns: 1fr; }
+      .split { grid-template-columns: 1fr; gap: 48px; }
+      .nav-links { display: none; }
+      .section { padding: 80px 0; }
+    }
+
+    @media (max-width: 480px) {
+      body { font-size: 16px; }
+      .hero { padding: 80px 0 64px; }
+      .hero-actions .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="container">
+      <a href="#" class="logo">Zarar Studio</a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#design">Design</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn btn--primary" style="padding: 6px 16px; font-size: 14px;">Get started</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Introducing Zarar Studio</p>
+        <h1>Build something<br />beautiful.</h1>
+        <p>Simple tools, thoughtful design, and fast results. Everything you need to launch your next project with confidence.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn--primary">Get started</a>
+          <a href="#features" class="btn btn--ghost">Learn more &rsaquo;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section section--alt" id="features">
+      <div class="container">
+        <p class="eyebrow">Features</p>
+        <h2 class="section-title">Everything in one place.</h2>
+        <p class="section-lead">Powerful capabilities designed to feel effortless from the first click.</p>
+
+        <div class="features">
+          <article class="card">
+            <div class="card-icon">⚡</div>
+            <h3>Blazing fast</h3>
+            <p>Optimized from the ground up so every page loads in a blink and every interaction feels instant.</p>
+          </article>
+          <article class="card">
+            <div class="card-icon">🔒</div>
+            <h3>Secure by default</h3>
+            <p>Your data is protected with modern encryption and sensible defaults that keep you safe.</p>
+          </article>
+          <article class="card">
+            <div class="card-icon">🎨</div>
+            <h3>Beautifully designed</h3>
+            <p>Clean typography, generous spacing, and a considered palette that looks great in light and dark mode.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Split feature -->
+    <section class="section" id="design">
+      <div class="container split">
+        <div>
+          <p class="eyebrow">Design</p>
+          <h2>Precision in every detail.</h2>
+          <p class="section-lead">Crafted with care, from the spacing between letters to the motion of every transition.</p>
+          <ul>
+            <li>Consistent typography across devices</li>
+            <li>Responsive layouts for phone, tablet, and desktop</li>
+            <li>Automatic dark mode support</li>
+          </ul>
+        </div>
+        <div class="visual">Aa</div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section section--alt" id="pricing">
+      <div class="container">
+        <p class="eyebrow">Pricing</p>
+        <h2 class="section-title">Simple, transparent plans.</h2>
+        <p class="section-lead">Start free and upgrade when you are ready.</p>
+
+        <div class="pricing">
+          <div class="plan">
+            <h3>Starter</h3>
+            <p>For individuals getting started.</p>
+            <div class="price">$0<span> / month</span></div>
+            <ul>
+              <li>Up to 3 projects</li>
+              <li>Community support</li>
+              <li>Basic analytics</li>
+            </ul>
+            <a href="#contact" class="btn btn--ghost" style="border: 1px solid var(--accent);">Choose Starter</a>
+          </div>
+
+          <div class="plan plan--featured">
+            <h3>Pro</h3>
+            <p>For growing teams and professionals.</p>
+            <div class="price">$19<span> / month</span></div>
+            <ul>
+              <li>Unlimited projects</li>
+              <li>Priority support</li>
+              <li>Advanced analytics</li>
+              <li>Custom domains</li>
+            </ul>
+            <a href="#contact" class="btn btn--primary">Choose Pro</a>
+          </div>
+
+          <div class="plan">
+            <h3>Enterprise</h3>
+            <p>For organizations with custom needs.</p>
+            <div class="price">Custom</div>
+            <ul>
+              <li>Everything in Pro</li>
+              <li>Dedicated account manager</li>
+              <li>SLA and compliance</li>
+            </ul>
+            <a href="#contact" class="btn btn--ghost" style="border: 1px solid var(--accent);">Contact sales</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section" id="contact">
+      <div class="container" style="text-align: center;">
+        <p class="eyebrow">Get in touch</p>
+        <h2 class="section-title">Ready when you are.</h2>
+        <p class="section-lead" style="margin: 0 auto 36px;">Email us at <a href="mailto:hello@example.com">hello@example.com</a> and we will reply within one business day.</p>
+        <a href="mailto:hello@example.com" class="btn btn--primary">Send an email</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span>&copy; 2026 Zarar Studio. All rights reserved.</span>
+      <span>Privacy &nbsp;·&nbsp; Terms &nbsp;·&nbsp; Accessibility</span>
+    </div>
+  </footer>
+
+</body>
+</html>
